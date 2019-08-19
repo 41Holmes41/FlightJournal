@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flight Details</title>
+</head>
+<body>
+        <h1>Flight Details</h1>
+        <a href="/flights/new">Add a new flight</a>
+        <a href="/flights">See All Flights</a>
+        <a href="/flights/:id/tickets/new">Add a new Ticket</a>
+        <a href="/">Home</a>
+
+<!--         airline
+        flightNo
+        departs
+        airport
+        destinations -->
+
+        <table>
+            <tr>
+                <th>Airline</th>
+                <th>Airport</th>
+                <th>Flight Number</th>
+                <th>Depart Time</th>
+                <th>Destination</th>
+            </tr>
+            <tr>
+                <th><%= flightData.airline %></th>
+                <th><%= flightData.airport %></th>
+                <th><%= flightData.flightNo %></th>
+                <th><%= flightData.departs %></th>
+                <% if(flightData.destinations.length > 0) { %>
+                    <% for (var i=0; i<flightData.destinations.length; i++) { %>
+                <th><%= flightData.destinations[i].airport %></th>
+                <% }}; %>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Purchased Tickets</th>
+                <th>
+                    <% Flight.findById(req.params.id, function(err,flight) { %>
+                        <% Ticket.find({flight: flight._id}, function(err, tickets) { %>
+                            <% for (var i=0; i < tickets.length; i++) { %>
+                                <%= tickets[i] %>
+                            <% }; %>
+                        <% }); %>
+                    <% }); %>
+                </th>
+            </tr>
+        </table>
+
+        <form id="add-destination-form" method="POST"
+   action="/flights/<%= flightData._id %>/destinations">
+            <label>Add Destination:</label>
+            <select name="airport">
+                <option value="AUS">Austin</option>
+                <option value="DAL">Dallas</option>
+                <option value="LAX">Las Angelas</option>
+                <option value="SEA">Seattle</option>
+            </select>
+            <input type="submit" value="Add Destination">
+        </form>
+</body>
+</html>
