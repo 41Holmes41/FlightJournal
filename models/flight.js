@@ -11,19 +11,21 @@ const destinationSchema = new Schema({
     },
     arrival: {
         type: Date,
-        default: function() {
+        default: function () {
             const date = new Date();
             const updatedYear = date.getFullYear() + 1;
             date.setFullYear(updatedYear);
             return date;
         }
     }
-}, {timestamps: true});
+}, {
+    timestamps: true
+});
 
 const flightSchema = new Schema({
     airline: {
         type: String,
-        enum: ['American','Southwest','United']
+        enum: ['American', 'Southwest', 'United']
     },
     flightNo: {
         type: Number,
@@ -33,7 +35,7 @@ const flightSchema = new Schema({
     },
     departs: {
         type: Date,
-        default: function() {
+        default: function () {
             const date = new Date();
             const updatedYear = date.getFullYear() + 1;
             date.setFullYear(updatedYear);
@@ -45,6 +47,8 @@ const flightSchema = new Schema({
         enum: ['AUS', 'DAL', 'LAX', 'SEA']
     },
     destinations: [destinationSchema]
-},{timestamps: true});
+}, {
+    timestamps: true
+});
 
 module.exports = mongoose.model('Flight', flightSchema);

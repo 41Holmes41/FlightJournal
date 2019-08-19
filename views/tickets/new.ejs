@@ -1,15 +1,21 @@
-<p>Please first ensure that the Performer is not in the dropdown
-        <select>
-          <% tickets.forEach(function(t) { %>
-            <option><%= t.seat %></option>
-          <% }) %>
-        </select>
-      </p>
-      <form id="add-ticket-form" action="/tickets" method="POST">
-        <label>Seat:</label>
-        <input name="seat" required pattern="[A-F][1-9]\d?">
-        <label>Price:</label>
-        <input type="text" name="price">
-        <input type="submit" value="Add Performer">
-      </form>
-      <%- include('../partials/footer') %>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create a New Ticket</title>
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <a href="/flights">Back to All Flights</a>
+    <hr>
+
+    <h1>Add a new Ticket</h1>
+    <form action="/flights/<%= flight._id %>/tickets" method="POST">
+      <input type="text" name="seat"  required pattern="[A-F][1-9]\d?">
+      <input type="number" name="price" min="0">
+      <input type="submit" value="Add Ticket">
+    </form>
+  </body>
+  </html>

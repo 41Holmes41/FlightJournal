@@ -4,14 +4,16 @@ module.exports = {
     create
 };
 
-function create(req,res) {
-    Flight.findById(req.params.id, function(err, flightData){
-        
-    flightData.destinations.push(req.body);
+function create(req, res) {
+    Flight.findById(req.params.id, function (err, flightData) {
 
-    flightData.save(function(err){
-        res.render('flights/show', {flightData});
-        
-    })
+        flightData.destinations.push(req.body);
+
+        flightData.save(function (err) {
+            res.render('flights/show', {
+                flightData
+            });
+
+        })
     })
 }

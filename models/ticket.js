@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var ticketSchema = new Schema({
+const ticketSchema = new Schema({
     seat: {
         type: String,
         match: /[A-F][1-9]\d?/
@@ -10,10 +10,10 @@ var ticketSchema = new Schema({
         type: Number,
         min: 0
     },
-    flight: {
+    flights: [{
         type: Schema.Types.ObjectId,
         ref: 'Flight'
-    }
+    }]
 
 
 }, {timestamps: true}
